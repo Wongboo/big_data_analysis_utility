@@ -22,10 +22,13 @@ maxr = floor(((m+n)-sqrt((m+n)**2-4*p))/2)
 
 rs = 2021
 np.random.seed(rs)
-
 # get problem
-omega = np.random.permutation(m*n)[:p]  # Omega gives the position of samplings
+omega_r = np.random.permutation(m*n)[:p] # omega_r gives the index of samplings within matrix
+omega = np.zeros([2,self.p],dtype=int)
+Omega[0,:] = Omega_r // self.m           # turn index to coordinate
+Omega[1,:] = Omega_r % self.m
+Omega = tuple(Omega)                     # Matrix could be indexed by A[Omega]
 xl = randn(m, r)
 xr = randn(n, r)
 a = xl @ xr.T  # A is the matrix to be completed
-m_mat = a.reshape(-1)[omega]  # M is the samples from A
+m_mat = a[Omega] # M is the samples from A
