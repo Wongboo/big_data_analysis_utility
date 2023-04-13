@@ -3,7 +3,8 @@
 # min mu*||X||_* + sum_{ij in idx}
 
 import numpy as np
-from numpy import round, floor, sqrt, randn
+from numpy import round, floor, sqrt
+from numpy.random import randn
 
 
 # generate data

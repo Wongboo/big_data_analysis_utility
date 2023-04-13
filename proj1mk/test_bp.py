@@ -5,7 +5,8 @@
 import time
 import numpy as np
 import scipy.sparse as sp
-from numpy import norm, rand, randn
+from numpy.random import rand, randn
+from numpy.linalg import norm
 
 
 def sprandn(m, n, density):
