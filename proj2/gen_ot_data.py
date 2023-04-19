@@ -1,6 +1,6 @@
 import numpy as np
 from time import time
-from imageio.v2 import imread
+from imageio.v3 import imread
 from numpy.linalg import norm
 from scipy.optimize import linprog
 from scipy.sparse import csr_matrix
@@ -59,8 +59,8 @@ t1 = time() - t0
 x = res.x
 print(res.message)
 print(f'linprog time: {t1:.1f} seconds.')
-print(f'Optimal transportation cost: {c.T @ x:.8e}.')
-print(f'Dual objective value: {b_eq.T @ res.eqlin.marginals:.8e}.')
-print(f'Relative duality gap: {np.abs(c.T @ x + b_eq.T @ res.eqlin.marginals) / (1 + 0.5 * np.abs(c.T @ x) - 0.5 * (b_eq.T @ res.eqlin.marginals)):.2e}')
+print(f'Optimal transportation cost: {c @ x:.8e}.')
+print(f'Dual objective value: {b_eq @ res.eqlin.marginals:.8e}.')
+print(f'Relative duality gap: {np.abs(c @ x + b_eq @ res.eqlin.marginals) / (1 + 0.5 * np.abs(c @ x) - 0.5 * (b_eq @ res.eqlin.marginals)):.2e}')
 print(f'Relative primal infeasibility: {norm(A_eq @ x - b_eq, np.inf) / (1 + norm(b_eq, np.inf)):.2e}.')
 print(f'Relative dual infeasibility: {norm(A_eq.T @ -res.eqlin.marginals + res.lower.marginals - c, np.inf) / (1 + norm(c, np.inf)):.2e}.')
