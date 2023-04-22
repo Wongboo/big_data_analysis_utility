@@ -4,7 +4,7 @@
 ## python
 
 - [x] proj1mk
-- [x] proj2(Relative duality gap似乎有问题）
+- [x] proj2
 - [ ] ...
 
 
