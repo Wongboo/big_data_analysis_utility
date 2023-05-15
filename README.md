@@ -6,7 +6,7 @@
 - [x] proj1mk
 - [x] proj2
 - [x] svd
-- [ ] phase （可能有bug）
+- [x] phase
 - [ ] ...
 
 

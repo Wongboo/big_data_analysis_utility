@@ -22,12 +22,12 @@ npower_iter = 50
 z0 = np.random.randn(n, 1)
 z0 = z0 / norm(z0)
 for tt in np.arange(npower_iter):
-    z0 = A.T @ (y * (A @ z0))
+    z0 = A.T.conj() @ (y * (A @ z0))
     z0 = z0 / norm(z0)
 
 normest = np.sqrt(sum(y) / np.asarray(y).size)
 z = normest * z0
-Relerrs = [norm(x - np.exp(- 1j * np.angle(np.trace(x.T @ z))) * z) / norm(x)]
+Relerrs = [norm(x - np.exp(-1j * np.angle(np.trace(x.T.conj() @ z))) * z) / norm(x)]
 
 # Loop
 T = 2500
@@ -37,15 +37,15 @@ def mu(t): return min(1 - np.exp(- t / tau0), 0.2)
 
 for t in np.arange(T):
     yz = A @ z
-    grad = 1 / m * A.T @ ((np.abs(yz) ** 2 - y) * yz)
+    grad = 1 / m * A.T.conj() @ ((np.abs(yz) ** 2 - y) * yz)
     z = z - mu(t + 1) / normest ** 2 * grad
-    Relerrs.append(norm(x - np.exp(-1j * np.angle(np.trace(x.T @ z))) * z) / norm(x))
+    Relerrs.append(norm(x - np.exp(-1j * np.angle(np.trace(x.T.conj() @ z))) * z) / norm(x))
 
 # Check results
 print(f'Relative error after initialization: {Relerrs[0]}')
 print(f'Relative error after {T} iterations: {Relerrs[T]}')
-fig, ax = plt.semilogy(np.arange(0, T+1), Relerrs)
+plt.semilogy(np.arange(0, T+1), Relerrs)
 plt.xlabel('Iteration')
 plt.ylabel('Relative error (log10)')
 plt.title('Relative error vs. iteration count')
-fig.show()
+plt.show()
