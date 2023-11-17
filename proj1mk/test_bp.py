@@ -5,23 +5,25 @@
 import time
 import numpy as np
 import scipy.sparse as sp
-from numpy.random import rand, randn
 from numpy.linalg import norm
+
+
+rng = np.random.default_rng()
 
 
 def sprandn(m, n, density):
     return sp.random(m, n, density=density, format='csc',
-                     data_rvs=lambda s: np.random.normal(size=s))
+                     data_rvs=lambda s: rng.standard_normal(s))
 
 
 # generate data
 n = 1024
 m = 512
-A = randn(m, n)
+A = rng.standard_normal((m, n))
 u = sprandn(n, 1, 0.1)
 b = A*u
 mu = 1e-2
-x0 = rand(n, 1)
+x0 = rng.random((n, 1))
 
 
 def errfun(x1, x2): return norm(x1-x2)/(1+norm(x1))

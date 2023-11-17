@@ -12,17 +12,18 @@ import matplotlib.pyplot as plt
 from numpy.linalg import norm
 
 
+rng = np.random.default_rng()
 n = 128
-x = np.random.randn(n, 1) + 1j * np.random.randn(n, 1)
+x = rng.standard_normal((n, 1)) + 1j * rng.standard_normal((n, 1))
 
 # Make masks and linear sampling operators
 L = 6
 
 # Sample phases: each symbol in alphabet {1, -1, i , -i} has equal prob.
-Masks = np.random.choice([1j, - 1j, 1, - 1], (n, L))
+Masks = rng.choice([1j, - 1j, 1, - 1], (n, L))
 
 # Sample magnitudes and make masks
-temp = np.random.rand(*Masks.shape)
+temp = rng.random(Masks.shape)
 Masks = Masks * ((temp <= 0.2) * np.sqrt(3) + (temp > 0.2) / np.sqrt(2))
 # Make linear operators; A is forward map and At its scaled adjoint (At(Y)*Y.size is the adjoint)
 def A(I): return np.fft.fft(Masks.conj() * np.tile(I, (1, L)), axis=0)
@@ -34,7 +35,7 @@ Y = np.abs(A(x)) ** 2
 
 # Initialization
 npower_iter = 50
-z0 = np.random.randn(n, 1)
+z0 = rng.standard_normal((n, 1))
 z0 = z0 / norm(z0)
 for tt in np.arange(npower_iter):
     z0 = At(Y * A(z0))

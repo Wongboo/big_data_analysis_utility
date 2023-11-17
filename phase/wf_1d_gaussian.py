@@ -11,15 +11,16 @@ import matplotlib.pyplot as plt
 from numpy.linalg import norm
 
 
+rng = np.random.default_rng()
 n = 128
-x = np.random.randn(n, 1) + 1j * np.random.randn(n, 1)
+x = rng.standard_normal((n, 1)) + 1j * rng.standard_normal((n, 1))
 m = int(np.round(4.5 * n))
-A = 1 / np.sqrt(2) * np.random.randn(m, n) + 1j / np.sqrt(2) * np.random.randn(m, n)
+A = 1 / np.sqrt(2) * rng.standard_normal((m, n)) + 1j / np.sqrt(2) * rng.standard_normal((m, n))
 y = np.abs(A @ x) ** 2
 
 # Initialization
 npower_iter = 50
-z0 = np.random.randn(n, 1)
+z0 = rng.standard_normal((n, 1))
 z0 = z0 / norm(z0)
 for tt in np.arange(npower_iter):
     z0 = A.T.conj() @ (y * (A @ z0))
