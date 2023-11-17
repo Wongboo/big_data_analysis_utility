@@ -4,7 +4,6 @@
 
 import numpy as np
 from numpy import round, floor, sqrt
-from numpy.random import randn
 
 
 # generate data
@@ -22,11 +21,11 @@ fr = r*(m+n-r)/p
 maxr = floor(((m+n)-sqrt((m+n)**2-4*p))/2)
 
 rs = 2021
-np.random.seed(rs)
+rng = np.random.default_rng(rs)
 
 # get problem
-omega = np.random.permutation(m*n)[:p]  # Omega gives the position of samplings
-xl = randn(m, r)
-xr = randn(n, r)
+omega = rng.permutation(m*n)[:p]  # Omega gives the position of samplings
+xl = rng.standard_normal((m, r))
+xr = rng.standard_normal((n, r))
 a = xl @ xr.T  # A is the matrix to be completed
 m_mat = a.reshape(-1)[omega]  # M is the samples from A

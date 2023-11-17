@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+rng = np.random.default_rng()
 m = 2048
 n = 512
 p = 20
-A = np.random.randn(m, p) @ np.random.randn(p, n)
+A = rng.standard_normal((m, p)) @ rng.standard_normal((p, n))
 
 A1 = plt.imread('example.jpg')  # read the image peppers.png
 plt.imshow(A1)  # display the image

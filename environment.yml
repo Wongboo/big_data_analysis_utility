@@ -1,0 +1,5 @@
+dependencies:
+- numpy
+- scipy
+- matplotlib
+- imageio
